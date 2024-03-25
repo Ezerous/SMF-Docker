@@ -1,6 +1,6 @@
 FROM buildpack-deps:stretch
 
-LABEL version=0.1.0 maintainer="ezerous@gmail.com"
+LABEL version=0.1.1 maintainer="ezerous@gmail.com"
 
 RUN echo "deb http://archive.debian.org/debian/ stretch main non-free contrib" > /etc/apt/sources.list \
     && echo "deb http://archive.debian.org/debian-security/ stretch/updates main" >> /etc/apt/sources.list
@@ -70,6 +70,9 @@ RUN mkdir -p /usr/local/lib/php/session && chmod 733 /usr/local/lib/php/session
 COPY php.ini /usr/local/lib/php.ini
 
 WORKDIR /var/www/html
+
+# For permission issues and improved security
+USER www-data
 
 EXPOSE 80
 CMD ["apache2", "-DFOREGROUND"]

@@ -1,6 +1,6 @@
 services:
   smf-app:
-    image: ezerous/smf-1.1.0
+    image: ezerous/php-5.3.29-apache-2
     container_name: smf_app
     ports:
       - "6789:80"
