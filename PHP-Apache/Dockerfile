@@ -1,11 +1,11 @@
-FROM buildpack-deps:stretch
+FROM debian:stretch-slim
 
-LABEL version=0.1.1 maintainer="ezerous@gmail.com"
+LABEL version=0.2.0 maintainer="ezerous@gmail.com"
 
 RUN echo "deb http://archive.debian.org/debian/ stretch main non-free contrib" > /etc/apt/sources.list \
     && echo "deb http://archive.debian.org/debian-security/ stretch/updates main" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y curl nano libgcrypt11-dev zlib1g-dev  && rm -r /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl unzip gnupg nano libgcrypt11-dev zlib1g-dev && rm -r /var/lib/apt/lists/*
 
 ##<apache2>##
 RUN apt-get update && apt-get install -y apache2-bin apache2-dev apache2 --no-install-recommends && rm -rf /var/lib/apt/lists/*
@@ -19,11 +19,12 @@ RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist
 COPY apache2.conf /etc/apache2/apache2.conf
 ##</apache2>##
 
-RUN gpg --keyserver pgp.mit.edu --recv-keys 0B96609E270F565C13292B24C13C70B87267B52D 0A95E9A026542D53835E3F3A7DEC4E69FC9C83D7
+# Add key for PHP verification
+RUN gpg --keyserver keyserver.ubuntu.com --recv-keys 0B96609E270F565C13292B24C13C70B87267B52D 0A95E9A026542D53835E3F3A7DEC4E69FC9C83D7
 
 ENV PHP_VERSION 5.3.29
 
-# php 5.3 needs older autoconf
+# PHP 5.3 needs older autoconf
 RUN set -x \
 	&& apt-get update && apt-get install -y autoconf2.13 && rm -r /var/lib/apt/lists/* \
 	&& autoconf --version \
@@ -47,7 +48,8 @@ RUN curl -O https://www.openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz \
 	&& make install \
 	&& cd ..
 
-RUN mkdir -p /usr/src/php \
+RUN apt-get update && apt-get install -y autoconf2.13 libxml2-dev default-libmysqlclient-dev && rm -r /var/lib/apt/lists/* \
+	&& mkdir -p /usr/src/php \
 	&& tar -xf php.tar.bz2 -C /usr/src/php --strip-components=1 \
 	&& rm php.tar.bz2* \
 	&& cd /usr/src/php \
@@ -71,7 +73,7 @@ COPY php.ini /usr/local/lib/php.ini
 
 WORKDIR /var/www/html
 
-# For permission issues and improved security
+# For correct permissions and improved security
 USER www-data
 
 EXPOSE 80
