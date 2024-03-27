@@ -12,7 +12,7 @@ COPY apache2.conf /etc/apache2/apache2.conf
 # PHP
 RUN docker-php-ext-install mysql mysqli pdo_mysql
 
-COPY php.ini /usr/local/lib/php.ini
+COPY php.ini /usr/local/etc/php/php.ini
 
 # For correct permissions and improved security
 USER www-data
