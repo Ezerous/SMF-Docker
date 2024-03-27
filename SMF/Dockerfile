@@ -1,6 +1,6 @@
-FROM ezerous/php-5.3.29-apache-2:latest
+FROM ezerous/php-5.4.45-apache-2:latest
 
-LABEL version=0.2.0 maintainer="ezerous@gmail.com"
+LABEL version=0.3.0 maintainer="ezerous@gmail.com"
 
 WORKDIR /var/www/html
 
