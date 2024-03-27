@@ -16,7 +16,7 @@ RUN rm -rf /var/www/html && mkdir -p /var/lock/apache2 /var/run/apache2 /var/log
 RUN a2dismod mpm_event && a2enmod mpm_prefork
 
 RUN mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.dist
-COPY ../apache2.conf /etc/apache2/apache2.conf
+COPY apache2.conf /etc/apache2/apache2.conf
 ##</Apache2>##
 
 # Add key for PHP verification
@@ -73,7 +73,7 @@ RUN apt-get update && apt-get install -y autoconf${AUTOCONF_VERSION} libxml2-dev
 
 RUN mkdir -p /usr/local/lib/php/session && chmod 733 /usr/local/lib/php/session
 
-COPY ../php.ini /usr/local/lib/php.ini
+COPY php.ini /usr/local/lib/php.ini
 
 WORKDIR /var/www/html
 
