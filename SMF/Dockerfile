@@ -1,4 +1,4 @@
-FROM ezerous/php-5.4.45-apache-2:latest
+FROM ezerous/php-apache:5.4-latest
 
 LABEL version=0.3.0 maintainer="ezerous@gmail.com"
 

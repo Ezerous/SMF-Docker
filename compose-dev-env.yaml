@@ -1,6 +1,6 @@
 services:
   smf-app:
-    image: ezerous/php-5.4.45-apache-2
+    image: ezerous/php-apache:5.4-latest
     container_name: smf_app
     ports:
       - "6789:80"
@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
 
   smf_db:
-    image: ezerous/mysql-5.1.73
+    image: ezerous/mysql:5.1-latest
     container_name: smf_db
     environment:
       MYSQL_ROOT_PASSWORD: root
