@@ -1,1 +1,1 @@
-From https://github.com/valsamovich/mysql-5.1.73 (Copyright (c) 2016 Valery Samovich)
+Based on https://github.com/valsamovich/mysql-5.1.73 (Copyright (c) 2016 Valery Samovich).
