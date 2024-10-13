@@ -13,5 +13,6 @@ The Docker Compose files define the following set of containers:
 
 - Use `docker compose -f compose-smf.yaml up -d` if you want an SMF v1.1.10 forum to be included (this uses named docker volumes).
 - Use `docker compose -f compose-dev-env.yaml up -d` for an initial development environment (SMF code not included). This will create two bind mounts locally, inside "volumes" directory.
+- There are also variants that use MySQL v5.7.
 
-For both cases, MySQL is hosted at `smf_db` with `root` as password of `root` user (feel free to edit).
+For all cases, MySQL is hosted at `smf_db` with `root` as password of `root` user (feel free to edit).

@@ -1,0 +1,32 @@
+services:
+  smf-app:
+    image: ezerous/smf:1.1.10-patched-latest
+    container_name: smf_app
+    ports:
+      - "80:80"
+    volumes:
+      - smf_app_volume:/var/www/html
+    networks:
+      - smf-network
+    restart: unless-stopped
+
+  smf_db:
+    image: mysql:5.7
+    container_name: smf_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - smf_db_volume:/var/lib/mysql
+    networks:
+      - smf-network
+    restart: unless-stopped
+
+networks:
+  smf-network:
+    driver: bridge
+
+volumes:
+  smf_app_volume:
+    name: smf_app_volume
+  smf_db_volume:
+    name: smf_db_volume
