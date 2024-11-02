@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
 
   smf_db:
-    image: mysql:5.7
+    image: ezerous/mysql:5.7-latest
     container_name: smf_db
     ports:
       - "127.0.0.1:3306:3306"
